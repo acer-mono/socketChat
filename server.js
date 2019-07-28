@@ -18,6 +18,8 @@ io.on('connection', function(socket){
 
     socket.on('new message', function (msg) {
         io.emit('new message', [msg, socket.id, id])
+        socket.broadcast.emit('message sound', "ok");
+
     });
 
     socket.on('new user', function (user) {
