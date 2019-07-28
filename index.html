@@ -40,20 +40,24 @@
 </div>
 
 <div id="chat" class="container-fluid d-none">
-    <div class="col-12">
-        <div class="sticky-top">
-                <form id="sendMessage" action="">
-                    <div class="input-group">
-                        <input type="text"
-                               class="form-control"
-                               id="m"
-                               placeholder="Enter message">
-                        <button type="submit"
-                                class="btn btn-primary">Send</button>
-                    </div>
-                </form>
+    <div class="row">
+        <div class="col-9">
+            <div class="sticky-top">
+                    <form id="sendMessage" action="">
+                        <div class="input-group">
+                            <input type="text"
+                                   class="form-control"
+                                   id="m"
+                                   placeholder="Enter message">
+                            <button type="submit"
+                                    class="btn btn-primary">Send</button>
+                        </div>
+                    </form>
+            </div>
+            <div id="messages"></div>
         </div>
-        <div id="messages"></div>
+        <div class="3" id="userStatus">
+        </div>
     </div>
 </div>
 </body>

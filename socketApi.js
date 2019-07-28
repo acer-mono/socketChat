@@ -90,5 +90,27 @@ window.onload = function() {
 
         }
     });
+
+    socket.on('user info', function (info) {
+        var list = document.getElementById('userStatus');
+        list.innerHTML='';
+        for (user in info[0]) {
+            var ul = document.createElement('ul');
+            ul.className = 'list-group';
+            ul.style = 'width: 21rem;';
+            var li = document.createElement('li');
+            li.className = 'list-group-item';
+            var h5 = document.createElement('h5');
+            h5.name = info[1][user];
+            if ( info[0][user] ) {
+                h5.innerHTML = user + '<span class="badge badge-success float-right">Онлайн</span>';
+            } else {
+                h5.innerHTML = user + '<span class="badge badge-danger float-right">Офлайн</span>';
+            }
+            li.appendChild(h5);
+            ul.appendChild(li)
+            list.appendChild(ul)
+        }
+    })
 };
 

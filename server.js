@@ -26,18 +26,22 @@ io.on('connection', function(socket){
                 io.emit('new user', false);
             } else {
                 socket.id = users[user];
+                connect[id[socket.id]] = true;
                 io.emit('old user', socket.id);
+                io.emit('user info', [connect, users])
             }
         } else {
             connect[user] = true;
             id[socket.id] = user;
             users[user] = socket.id;
-            io.emit('new user', true)
+            io.emit('new user', true);
+            io.emit('user info', [connect, users])
         }
     });
 
     socket.on('disconnect', function () {
         connect[id[socket.id]] = false;
+        io.emit('user info', [connect, users]);
         io.emit('disconnect', socket.id);
         socket.broadcast.to(socket.id).emit('close', true);
         console.log('user disconnected')
