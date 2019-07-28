@@ -108,7 +108,7 @@ window.onload = function() {
                 h5.innerHTML = user + '<span class="badge badge-danger float-right">Офлайн</span>';
             }
             li.appendChild(h5);
-            ul.appendChild(li)
+            ul.appendChild(li);
             list.appendChild(ul)
         }
     })
