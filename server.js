@@ -5,7 +5,6 @@ var io = require('socket.io')(http);
 
 app.use(express.static(__dirname));
 
-
 app.get('/', function(req, res){
     res.sendFile(__dirname + '/index.html');
 });
@@ -29,7 +28,6 @@ io.on('connection', function(socket){
                 socket.id = users[user];
                 io.emit('old user', socket.id);
             }
-
         } else {
             connect[user] = true;
             id[socket.id] = user;
@@ -41,6 +39,7 @@ io.on('connection', function(socket){
     socket.on('disconnect', function () {
         connect[id[socket.id]] = false;
         io.emit('disconnect', socket.id);
+        socket.broadcast.to(socket.id).emit('close', true);
         console.log('user disconnected')
     })
 });

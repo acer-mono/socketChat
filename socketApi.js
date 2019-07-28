@@ -5,6 +5,7 @@ window.onload = function() {
     var logForm = document.getElementById('enterLogin');
     logForm.addEventListener('submit', function (e) {
         e.preventDefault();
+
         var input = document.getElementById('userLogin');
         socket.emit('new user', input.value);
         socket.on('new user', function (answer) {
@@ -22,6 +23,7 @@ window.onload = function() {
 
     mesForm.addEventListener('submit', function (e) {
         e.preventDefault();
+
         var input = document.getElementById('m');
         socket.emit('new message', input.value);
         input.value = '';
@@ -30,8 +32,8 @@ window.onload = function() {
     socket.on('new message', function (arr) {
         var row = document.createElement('div');
         var subrow = document.createElement('div');
-        subrow.className = 'col-12';
         row.className = 'row';
+        subrow.className = 'col-12';
         var mainDiv = document.getElementById('messages');
         var divOuter = document.createElement('div');
         if (socket.id !== arr[1]) {
@@ -49,7 +51,6 @@ window.onload = function() {
         var online = document.createElement('span');
         online.className = 'badge badge-success float-right';
         online.textContent = 'Онлайн';
-
         var divText = document.createElement('p');
         divText.className = 'card-text';
         divText.textContent = arr[0];
@@ -63,10 +64,15 @@ window.onload = function() {
     });
 
     socket.on('disconnect', function (id) {
+        if(socket.id === undefined) {
+            document.getElementById('login').classList.remove('d-none');
+            document.getElementById('chat').classList.add('d-none');
+            document.location.hash = '#login'
+        }
         var messageList = document.getElementsByName(""+id);
-        for(var i = 0; i < messageList.length; i++) {
+        for( var i = 0; i < messageList.length; i++ ) {
             messageList[i].innerHTML =
-                messageList[i].innerText.slice(0, messageList[i].innerText.length-6) +
+                messageList[i].innerText.slice(0, messageList[i].innerText.length - 6) +
                 '<span class="badge badge-danger float-right">Офлайн</span>';
         }
 
@@ -81,8 +87,8 @@ window.onload = function() {
             messageList[i].innerHTML =
                 messageList[i].innerText.slice(0, messageList[i].innerText.length-6) +
                 '<span class="badge badge-success float-right">Онлайн</span>';
-        }
-    })
 
+        }
+    });
 };
 
