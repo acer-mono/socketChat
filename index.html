@@ -1,0 +1,60 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>SocketChat</title>
+    <style>
+    </style>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="socketApi.js"></script>
+</head>
+<body>
+<div id="login" class="container-fluid">
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4 mt-4">
+            <div class="card border-dark">
+                <div class="card-header">Вход в SocketChat</div>
+                <div class="card-body text-dark">
+                    <form id="enterLogin" action="">
+                        <h5 class="card-title">Введите логин</h5>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">@</span>
+                            </div>
+                            <input id="userLogin" type="text" class="form-control" placeholder="Логин" aria-label="Имя пользователя" aria-describedby="basic-addon1">
+                            <div class="invalid-feedback">
+                                Введенный логин существует.
+                            </div>
+                        </div>
+                        <button class="btn btn-outline-secondary" type="submit">Вход</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-4"></div>
+    </div>
+</div>
+
+<div id="chat" class="container-fluid d-none">
+    <div class="col-12">
+        <div class="sticky-top">
+                <form id="sendMessage" action="">
+                    <div class="input-group">
+                        <input type="text"
+                               class="form-control"
+                               id="m"
+                               placeholder="Enter message">
+                        <button type="submit"
+                                class="btn btn-primary">Send</button>
+                    </div>
+                </form>
+        </div>
+        <div id="messages"></div>
+    </div>
+</div>
+</body>
+</html>
