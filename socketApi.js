@@ -1,5 +1,5 @@
 window.onload = function() {
-    var socket = io();
+    var socket = io({transports: ['websocket'], upgrade: false});
 
     var mesForm = document.getElementById('sendMessage');
     var logForm = document.getElementById('enterLogin');
@@ -79,12 +79,13 @@ window.onload = function() {
     });
 
     socket.on('old user', function (id) {
-        document.getElementById('login').classList.add('d-none');
-        document.getElementById('chat').classList.remove('d-none');
-        document.location.hash = '#chat';
+        if (id[0] === socket.id) {
+            document.getElementById('login').classList.add('d-none');
+            document.getElementById('chat').classList.remove('d-none');
+            document.location.hash = '#chat';
+        }
 
-
-        var messageList = document.getElementsByName(""+id);
+        var messageList = document.getElementsByName(""+id[1]);
         for(var i = 0; i < messageList.length; i++) {
             messageList[i].innerHTML =
                 messageList[i].innerText.slice(0, messageList[i].innerText.length-6) +
@@ -113,7 +114,8 @@ window.onload = function() {
             ul.appendChild(li);
             list.appendChild(ul)
         }
-    })
+    });
+
     socket.on('message sound', function (sound) {
         var snd = new Audio("success.wav"); // buffers automatically when created
         snd.play();

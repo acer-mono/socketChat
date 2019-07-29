@@ -27,9 +27,9 @@ io.on('connection', function(socket){
             if(connect[user]) {
                 io.emit('new user', false);
             } else {
+                io.emit('old user', [socket.id, users[user]]);
                 socket.id = users[user];
                 connect[id[socket.id]] = true;
-                io.emit('old user', socket.id);
                 io.emit('user info', [connect, users])
             }
         } else {
@@ -42,10 +42,12 @@ io.on('connection', function(socket){
     });
 
     socket.on('disconnect', function () {
-        connect[id[socket.id]] = false;
-        io.emit('user info', [connect, users]);
-        io.emit('disconnect', socket.id);
-        socket.broadcast.to(socket.id).emit('close', true);
+        if(connect[id[socket.id]] !== undefined) {
+            connect[id[socket.id]] = false;
+            io.emit('user info', [connect, users]);
+            io.emit('disconnect', socket.id);
+            socket.broadcast.to(socket.id).emit('close', true);
+        }
         console.log('user disconnected')
     })
 });
